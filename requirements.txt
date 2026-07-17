@@ -1,0 +1,13 @@
+langchain_community
+langchain_google_genai
+python-dotenv
+langchain_core
+pydantic
+langchain_huggingface
+sentence-transformers
+faiss-cpu
+pypdf
+bs4
+langgraph
+langchain-text-splitters
+mcp
