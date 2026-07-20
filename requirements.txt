@@ -11,3 +11,6 @@ bs4
 langgraph
 langchain-text-splitters
 mcp
+fastapi
+uvicorn
+requests
