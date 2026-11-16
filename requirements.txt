@@ -1,16 +1,36 @@
-langchain_community
+# Verified in a real sandbox run against triage_agent_production.py and
+# api_service.py (graph construction, all 3 routing paths, streaming,
+# guardrails, circuit breaker, idempotency, FastAPI endpoints -- see
+# PRODUCTION_READINESS_REVIEW.md for exactly what was and wasn't exercised).
+langchain_core==1.5.5
+langchain_community==0.4.2
+langchain-text-splitters==1.1.2
+langgraph==1.2.11
+langgraph-checkpoint==4.2.0
+tenacity==9.1.4
+fastapi==0.141.1
+uvicorn[standard]==0.52.3
+pydantic==2.13.4
+python-dotenv==1.2.2
+beautifulsoup4==4.14.3
+faiss-cpu==1.15.0
+rank_bm25==0.2.2
+filelock==3.32.3
+
+# Carried over from the original file's requirements list -- NOT installed
+# or exercised in this sandbox (no network egress here to Google's API or
+# the HuggingFace hub). Pin these to your own known-good versions before
+# shipping; don't assume they're compatible with the pins above without
+# testing against a real model/embeddings call at least once.
 langchain_google_genai
-python-dotenv
-langchain_core
-pydantic
 langchain_huggingface
 sentence-transformers
-faiss-cpu
 pypdf
 bs4
-langgraph
-langchain-text-splitters
 mcp
-fastapi
-uvicorn
-requests
+
+# For a production checkpointer backend instead of the in-memory
+# MemorySaver default (needed the moment you run more than one instance,
+# or want a crash mid-run to be resumable):
+#   langgraph-checkpoint-postgres
+#   psycopg[binary,pool]

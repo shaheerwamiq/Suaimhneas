@@ -1,0 +1,24 @@
+{
+  "model_id": "microsoft/trocr-base-printed",
+  "source_revision": "93450be3f1ed40a930690d951ef3932687cc1892",
+  "files": {
+    "decoder_model.onnx": [
+      "decoder_model.onnx.part000",
+      "decoder_model.onnx.part001",
+      "decoder_model.onnx.part002",
+      "decoder_model.onnx.part003"
+    ]
+  },
+  "file_sha256": {
+    "tokenizer_config.json": "ce86b739c63fc036e97ab3c456d950ea4e483cae52f45a485dafeb26b3f69ec4",
+    "special_tokens_map.json": "8293ae960b0a0852d4d3813118030a1149a3ed9fe37bc2e1e7b3c2e62eb2d4b7",
+    "config.json": "fd0104de155aebdb41becc4fe7cb864dd7ab9e3336606f6f1731f98c8e41da78",
+    "generation_config.json": "84a04b6c15dbcc67e1f503d94f877f0419de217fbc68fbd8b1b1b40fb800b9a0",
+    "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+    "encoder_model.onnx": "bb797833f06e8baf568fb4a01e6b8d8211bc88d597aaee918e740846002d9ce7",
+    "vocab.json": "32b29acf82d3333462eb4b13416760f2aef956052e8fea1749fe5b20f866a4bf",
+    "preprocessor_config.json": "96fd208e04b8eb30aace1a1d9188a82fdc0001281f4032788f8e357a52d1a847",
+    "decoder_model.onnx": "a214220f1118b27e23c1a2f1e5f79ec3d239c2ec9943e29d6b0f2b10866c64c6"
+  },
+  "sha256": "a7a78519abfd9fb8244ace944ef597758600c8323fdba081c4e21668563691b0"
+}
