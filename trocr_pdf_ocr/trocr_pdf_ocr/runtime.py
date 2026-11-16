@@ -16,9 +16,12 @@ from transformers import TrOCRProcessor
 PACKAGE_MODEL_DIR = Path(__file__).resolve().parent / "model"
 
 
-def _materialize_bundled_model(cache_dir: Optional[Path] = None) -> Path:
+def _materialize_bundled_model(
+    cache_dir: Optional[Path] = None,
+    package_model_dir: Path = PACKAGE_MODEL_DIR,
+) -> Path:
     """Reassemble GitHub-safe model chunks into a local cache directory."""
-    manifest_path = PACKAGE_MODEL_DIR / "shards.json"
+    manifest_path = package_model_dir / "shards.json"
     if not manifest_path.is_file():
         raise FileNotFoundError(
             "TrOCR model assets are missing. Install the complete repository package "
@@ -39,7 +42,7 @@ def _materialize_bundled_model(cache_dir: Optional[Path] = None) -> Path:
     staging = Path(tempfile.mkdtemp(prefix=f".{model_hash}.", dir=cache_root))
     try:
         chunk_names = {chunk for chunks in manifest["files"].values() for chunk in chunks}
-        for source in PACKAGE_MODEL_DIR.iterdir():
+        for source in package_model_dir.iterdir():
             if source.is_file() and source.name not in chunk_names and source.name != "shards.json":
                 shutil.copy2(source, staging / source.name)
 
@@ -47,7 +50,7 @@ def _materialize_bundled_model(cache_dir: Optional[Path] = None) -> Path:
             digest = hashlib.sha256()
             with (staging / filename).open("wb") as output:
                 for chunk_name in chunks:
-                    chunk_path = PACKAGE_MODEL_DIR / chunk_name
+                    chunk_path = package_model_dir / chunk_name
                     if not chunk_path.is_file():
                         raise FileNotFoundError(f"TrOCR model chunk is missing: {chunk_name}")
                     with chunk_path.open("rb") as chunk:
@@ -82,7 +85,15 @@ class TrocrEngine:
     """Recognize text-line images using local ONNX files and CPU execution."""
 
     def __init__(self, model_dir: Optional[os.PathLike] = None, max_new_tokens: int = 128):
-        self.model_dir = Path(model_dir) if model_dir else _materialize_bundled_model()
+        if model_dir is None:
+            self.model_dir = _materialize_bundled_model()
+        else:
+            requested_model_dir = Path(model_dir)
+            self.model_dir = (
+                _materialize_bundled_model(package_model_dir=requested_model_dir)
+                if (requested_model_dir / "shards.json").is_file()
+                else requested_model_dir
+            )
         if not (self.model_dir / "encoder_model.onnx").is_file():
             raise FileNotFoundError(f"TrOCR encoder ONNX file not found in {self.model_dir}")
         if not (self.model_dir / "decoder_model.onnx").is_file():

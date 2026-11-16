@@ -38,6 +38,36 @@ from trocr_pdf_ocr import read_pdf
 text = read_pdf("document.pdf")
 ```
 
+## Handwritten Text Model
+
+The optional `microsoft/trocr-base-handwritten` ONNX export is stored beside
+the printed model. Select it explicitly when recognizing a text-line image:
+
+```python
+from pathlib import Path
+from PIL import Image
+from trocr_pdf_ocr import TrocrEngine
+
+model_dir = Path("trocr_pdf_ocr/trocr_pdf_ocr/model_handwritten")
+engine = TrocrEngine(model_dir=model_dir)
+text = engine.recognize(Image.open("handwriting-line.png"))
+```
+
+The model expects a cropped, single text line, just like the printed model.
+Both model directories remain separate; the default PDF reader continues to
+use the printed checkpoint unless an engine is passed explicitly. To OCR
+scanned PDF pages with the handwritten checkpoint, pass it to the PDF reader:
+
+```python
+from pathlib import Path
+from trocr_pdf_ocr import TrocrEngine, read_pdf
+
+engine = TrocrEngine(
+	model_dir=Path("trocr_pdf_ocr/trocr_pdf_ocr/model_handwritten")
+)
+text = read_pdf("handwritten-scan.pdf", engine=engine)
+```
+
 ## Export / Rebuild The Model
 
 The repository includes a verified model bundle. To rebuild it from the

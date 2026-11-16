@@ -1,0 +1,4 @@
+*.onnx binary
+*.onnx.part* binary
+*.json text
+*.txt -text

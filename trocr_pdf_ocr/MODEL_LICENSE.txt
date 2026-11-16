@@ -1,8 +1,9 @@
-TrOCR checkpoint: microsoft/trocr-base-printed
-Model page: https://huggingface.co/microsoft/trocr-base-printed
+TrOCR checkpoints:
+- microsoft/trocr-base-printed: https://huggingface.co/microsoft/trocr-base-printed
+- microsoft/trocr-base-handwritten: https://huggingface.co/microsoft/trocr-base-handwritten
 Upstream implementation and license: https://github.com/microsoft/unilm
 
 The upstream UniLM repository identifies its project license as MIT. The
-Hugging Face checkpoint does not declare a separate license in its model
+Hugging Face checkpoints do not declare separate licenses in their model
 metadata. Confirm your organization's approval for redistribution and use of
-the checkpoint and its SROIE-derived training data before publishing it.
+the checkpoints and their training data before publishing them.

@@ -84,8 +84,7 @@ class PdfOcrTests(unittest.TestCase):
             }
             (package_model / "shards.json").write_text(json.dumps(manifest), encoding="utf-8")
 
-            with patch("trocr_pdf_ocr.runtime.PACKAGE_MODEL_DIR", package_model):
-                result = _materialize_bundled_model(cache_dir)
+            result = _materialize_bundled_model(cache_dir, package_model)
             self.assertEqual((result / "weights.onnx").read_bytes(), weight)
 
 

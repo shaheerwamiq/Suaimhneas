@@ -23,4 +23,4 @@ trocr-pdf-ocr = "trocr_pdf_ocr.cli:main"
 include-package-data = true
 
 [tool.setuptools.package-data]
-trocr_pdf_ocr = ["model/*"]
+trocr_pdf_ocr = ["model/*", "model_handwritten/*"]
